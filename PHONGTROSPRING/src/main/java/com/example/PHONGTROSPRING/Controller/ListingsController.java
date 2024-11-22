@@ -19,11 +19,10 @@ public class ListingsController {
 	@Autowired
 	private ImagesService imageService;
 
-	@GetMapping("/add-listing")
-	public String add() {
-		listingsService.addSampleListings();
-		return "ok";
-	}
+	/*
+	 * @GetMapping("/add-listing") public String add() {
+	 * listingsService.addSampleListings(); return "ok"; }
+	 */
 
 	@GetMapping("/detailRoom/id={roomId}")
 	public String detailRoom(@PathVariable int roomId, Model model) {

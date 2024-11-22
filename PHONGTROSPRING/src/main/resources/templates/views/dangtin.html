@@ -1,91 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng tin</title>
-    <link rel="stylesheet" th:href="@{/assets/css/dangtin.css}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng tin mới</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/dangtin.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/header.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Lắng nghe sự kiện thay đổi của #mySelect
+    document.getElementById("mySelect").addEventListener("change", function () {
+        const selectedCity = this.value; // Lấy giá trị của thành phố được chọn
+
+        // Kiểm tra nếu chưa chọn thành phố, thì xóa sạch danh sách quận/huyện
+        if (!selectedCity) {
+            document.getElementById("locationSelect").innerHTML = '<option value="">Chọn quận/huyện</option>';
+            return;
+        }
+
+        // Gửi yêu cầu đến API
+        fetch(`/getcity?selectedvalue=${selectedCity}`)
+            .then(response => response.json()) // Chuyển phản hồi thành JSON
+            .then(data => {
+                const locationSelect = document.getElementById("locationSelect");
+
+                // Xóa các option cũ
+                locationSelect.innerHTML = '<option value="">Chọn quận/huyện</option>';
+
+                // Duyệt qua danh sách và thêm từng option
+                data.forEach(location => {
+                    const option = document.createElement("option");
+                    option.value = location.locationId; // Gán locationId vào value
+                    option.textContent = location.district; // Hiển thị district
+                    locationSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error:', error)); // Xử lý lỗi nếu có
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Lắng nghe sự kiện thay đổi của #mySelect
+    document.getElementById("goitime").addEventListener("change", function () {
+        const selected = this.value; // Lấy giá trị của thành phố được chọn
+
+        // Kiểm tra nếu chưa chọn thành phố, thì xóa sạch danh sách quận/huyện
+        if (!selected) {
+            document.getElementById("songay").innerHTML = '<option value="">Thời gian</option>';
+            return;
+        }
+
+        // Gửi yêu cầu đến API
+        fetch(`/getdataday?goithoigian=${selected}`)
+            .then(response => response.json()) // Chuyển phản hồi thành JSON
+            .then(data => {
+                const locationSelect = document.getElementById("songay");
+				let i = 1;
+                // Xóa các option cũ
+                locationSelect.innerHTML = '<option value="">Thời gian</option>';
+
+                // Duyệt qua danh sách và thêm từng option
+                data.forEach(time => {
+                    const option = document.createElement("option");
+                    option.value = i; // Gán locationId vào value
+                    option.textContent = i+ ' ' +time; // Hiển thị district
+                    locationSelect.appendChild(option);
+                    i++;
+                });
+            })
+            .catch(error => console.error('Error:', error)); // Xử lý lỗi nếu có
+    });
+});
+</script>
 </head>
 <body>
-    <div class="container">
-        Khu vực
-        <div class="section">
-            <h2>Khu vực</h2>
-            <div class="form-group">
-                <label for="city">Tỉnh/Thành phố</label>
-                <select id="city">
-                    <option>Chọn tỉnh/thành...</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="district">Quận/Huyện</label>
-                <select id="district">
-                    <option>Chọn quận/huyện...</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="ward">Phường/Xã</label>
-                <select id="ward">
-                    <option>Chọn phường/xã...</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="street">Đường/Phố</label>
-                <select id="street">
-                    <option>Chọn đường/phố...</option>
-                </select>
-            </div>
-            <input type="text" placeholder="Địa chỉ">
-        </div>
+	<div th:replace="views/header-footer/header"></div>
 
-        Bản đồ
-        <div class="section map">
-            <h2>Bản đồ</h2>
-            <div class="map-container">
-                <img src="map.jpg" alt="Map">
-            </div>
-        </div>
+	<div>
+		<h1>Đăng tin mới</h1>
+		<div class="boder"></div>
+		<form th:action="@{dangtin}" enctype="multipart/form-data"
+			method="post">
+			<div class="big">
+				<h2>Địa chỉ cho thuê</h2>
+				<div class="group-form">
+					<div class="froup-item">
+						<label>Tỉnh/Thành phố</label> <select name="city" id="mySelect">
+							<option>Chọn thành phố</option>
+							<option th:each="city : ${locations}" th:value="${city}"
+								th:text="${city}"></option>
+						</select>
+						<p id="result"></p>
+					</div>
+					<div class="froup-item">
+						<label>Quận/Huyện</label> <select name="locationid"
+							id="locationSelect">
+							<option th:each="location : ${locationlist}"
+								th:value="${location.locationId}" th:text="${location.district}"></option>
+						</select>
 
-        Thông tin mô tả
-        <div class="section">
-            <h2>Thông tin mô tả</h2>
-            <div class="form-group">
-                <label for="category">Loại danh mục</label>
-                <select id="category">
-                    <option>Chọn loại chuyên mục...</option>
-                </select>
-            </div>
-            <input type="text" placeholder="Tiêu đề">
-            <textarea placeholder="Nội dung mô tả"></textarea>
-            <input type="text" placeholder="Giá cho thuê">
-            <input type="text" placeholder="Diện tích">
-        </div>
+					</div>
 
-        Đặc điểm nổi bật
-        <div class="section">
-            <h2>Đặc điểm nổi bật</h2>
-            <div class="checkbox-group">
-                <label><input type="checkbox"> Đầy đủ nội thất</label>
-                <label><input type="checkbox"> Cần chuyển nhượng</label>
-                <label><input type="checkbox"> Cần cho thuê</label>
-                Add more checkboxes as needed
-            </div>
-        </div>
+				</div>
+				<div class="froup-item">
+					<label>Địa chỉ chính xác</label> <input type="text" name="address">
+				</div>
+			</div>
+			<div class="big">
+				<h2>Thông tin mô tả</h2>
+				<div class="group-form2">
+					<div class="froup-item">
+						<label>Loại phòng</label> <select class="select" name="roomTypeid">
+							<option>Chọn loại phòng</option>
+							<option th:each="roomtype : ${roomtypes}"
+								th:value="${roomtype.roomTypeId}"
+								th:text="${roomtype.roomTypeName}"></option>
+						</select>
+					</div>
+					<div class="froup-item">
+						<label>Tiêu đề</label> <input type="text" name="title">
+					</div>
+					<div class="froup-item">
+						<label>Nội dung miêu tả</label>
+						<textarea rows="5" cols="" name="description"></textarea>
+					</div>
+					<div class="group-form">
+						<div class="froup-item">
+							<label>Giá cho thuê</label><input type="text" name="price">
+						</div>
+						<div class="froup-item">
+							<label>Diện tích</label><input type="text" name="area">
+						</div>
+						<div class="froup-item">
+							<label>Đối tượng cho thuê</label> <select name="object">
+								<option th:value="hrgaehg">Tất cả</option>
+								<option th:value="Nam" th:text="Nam"></option>
+								<option th:value="Nữ" th:text="Nữ"></option>
+							</select>
+						</div>
+					</div>
+					<div class="group-form">
+						<div class="froup-item">
+							<label>Hình ảnh</label><input type="file" name="urlAnh" multiple>
+						</div>
+						<!-- <div class="froup-item">
+						<label>Video</label><input type="file" name="urlVideo">
+					</div> -->
+					</div>
+				</div>
+			</div>
+			<div class="big">
+				<h2>Thanh toán tin</h2>
+				<div class="group-form">
+					<div class="froup-item">
 
-        Hình ảnh
-        <div class="section">
-            <h2>Hình ảnh</h2>
-            <div class="image-upload">
-                <input type="file" id="fileUpload" multiple>
-                <label for="fileUpload">Tải ảnh lên</label>
-            </div>
-        </div>
+						<label>Loại tin</label> <select name="loaitin">
+							<option value="" disabled selected>Chọn loại tin</option>
+							<option value="0">Tin miễn phí</option>
+							<option value="2000">Tin thường</option>
+							<option value="10000">Tin VIP 3</option>
+							<option value="20000">Tin VIP 2</option>
+							<option value="30000">Tin VIP 1</option>
+							<option value="50000">Tin VIP nổi bật</option>
+						</select>
+					</div>
+					<div class="froup-item">
+						<label>Gói thời gian</label> <select name="goitime" id="goitime">
+							<option>Chọn gói thời gian</option>
+							<option value="ngay">Đăng theo ngày</option>
+							<option value="tuan">Đăng theo tuần</option>
+							<option value="thang">Đăng theo tháng</option>
+						</select>
+					</div>
+					<div class="froup-item">
+						<label>Thời gian</label> <select name="songay" id="songay">
+							<option>Thời gian</option>
+						</select>
+					</div>
+				</div>
+			</div>
 
-        Video
-        <div class="section">
-            <h2>Video</h2>
-            <input type="text" placeholder="Video Link (YouTube)">
-        </div>
-    </div>
+			<div class="btn">
+				<button type="submit" class="btn-submit">Tiếp tục</button>
+			</div>
+		</form>
+	</div>
+	<div th:replace="views/header-footer/footer"></div>
 </body>
 </html>

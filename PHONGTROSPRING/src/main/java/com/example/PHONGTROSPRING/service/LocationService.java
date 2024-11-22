@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.PHONGTROSPRING.entities.Locations;
@@ -72,4 +73,30 @@ public class LocationService {
         // Lưu tất cả dữ liệu vào database
         locationRepository.saveAll(locations);
     }
+    
+    public List<String> getAllLocation() {
+    	List<Locations> location = new ArrayList<>();
+    	List<String> list = new ArrayList<>();
+    	location = locationRepository.findAll(Sort.by(Sort.Order.asc("city")));
+    	
+    	String temp = location.get(0).getCity();
+    	
+    	list.add(temp);
+    	
+    	for(int i = 0; i< location.size(); i++) {
+    		if(!location.get(i).getCity().equals(temp)) {
+    			temp = location.get(i).getCity();
+    			list.add(temp);
+    		}
+    	}
+    	
+    	return list;	
+		
+	}
+	public List<Locations> getAllLocations(String city) {
+		List<Locations> location = new ArrayList<>();
+		location = locationRepository.findByCity(city);
+		
+		return location;
+	}
 }

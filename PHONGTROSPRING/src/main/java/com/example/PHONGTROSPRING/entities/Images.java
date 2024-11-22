@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -22,7 +23,8 @@ public class Images {
 	private Listings listing;
 
 	@Column(nullable = false, length = 255)
-	private String imageUrl;
+	@Lob
+	private byte[] imageUrl;
 
 	public int getImageId() {
 		return imageId;
@@ -40,12 +42,13 @@ public class Images {
 		this.listing = listing;
 	}
 
-	public String getImageUrl() {
+	public byte[] getImageUrl() {
 		return imageUrl;
 	}
 
-	public void setImageUrl(String imageUrl) {
+	public void setImageUrl(byte[] imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+	
 
 }

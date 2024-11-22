@@ -12,9 +12,8 @@ public class ImagesController {
 	@Autowired
 	private ImagesService imagesService;
 
-	@GetMapping("/add-images")
-	public String add() {
-		imagesService.add();
-		return "ok";
-	}
+	/*
+	 * @GetMapping("/add-images") public String add() { imagesService.add(); return
+	 * "ok"; }
+	 */
 }

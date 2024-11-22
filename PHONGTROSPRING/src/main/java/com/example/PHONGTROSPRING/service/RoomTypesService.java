@@ -1,5 +1,7 @@
 package com.example.PHONGTROSPRING.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +25,8 @@ public class RoomTypesService {
         addRoomType("Nhà nguyên căn");
         addRoomType("Căn hộ");
         addRoomType("Mặt bằng");
+    }
+    public List<RoomTypes> getAllRoomTypes(){
+    	return roomTypesRepository.findAll();
     }
 }

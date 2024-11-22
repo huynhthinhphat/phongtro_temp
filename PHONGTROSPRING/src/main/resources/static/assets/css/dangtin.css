@@ -1,106 +1,41 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+.group-form {
+	display: flex;
 }
 
-body {
-    background-color: #f9f9f9;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+.boder {
+	margin-left: 10px;
+	height: 3px;
+	background: black;
 }
 
-.container {
-    width: 80%;
-    max-width: 1200px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.froup-item {
+	display: flex;
+	flex-direction: column;
+	margin-left: 20px;
+	margin-top: 10px;
 }
 
-.section {
-    margin-bottom: 20px;
+.big {
+	margin-left: 20px;
 }
 
-.section h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #333;
+label {
+	margin-bottom: 10px;
+	font-weight: bold;
 }
 
-.form-group {
-    margin-bottom: 10px;
+.select {
+	width: 30%;
 }
 
-.form-group label {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: #555;
+.btn {
+	margin-top:20px;
+	display: flex; /* Enables CSS flexbox */
+	justify-content: center; /* Centers horizontally */
+	align-items: center; /* Centers vertically */
 }
 
-.form-group select,
-input[type="text"],
-textarea {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
-textarea {
-    resize: vertical;
-    height: 80px;
-}
-
-.map-container {
-    width: 100%;
-    overflow: hidden;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-top: 10px;
-}
-
-.map-container img {
-    width: 100%;
-    height: auto;
-}
-
-.checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.checkbox-group label {
-    width: 48%;
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: #555;
-}
-
-.image-upload {
-    border: 2px dashed #ddd;
-    padding: 20px;
-    text-align: center;
-    color: #888;
-    border-radius: 4px;
-}
-
-.image-upload input[type="file"] {
-    display: none;
-}
-
-.image-upload label {
-    cursor: pointer;
-    color: #0066cc;
-    font-weight: bold;
-}
-
-input[type="text"]::placeholder, textarea::placeholder {
-    color: #aaa;
+.btn-submit {
+	font-size:20px;
+	background-color: #33CCFF;
 }
