@@ -148,6 +148,7 @@ public class ServicePostNew {
 		listing.setCreatedAt();
 		listing.setObject(request.getObject());
 		listing.setExpiryDate(localdate);
+		listing.setPostType(requesttt.getLoaitin());
 		ListingsRepository.save(listing);
 		for (MultipartFile file : request.getUrlAnh()) {
 			Images images = new Images();
