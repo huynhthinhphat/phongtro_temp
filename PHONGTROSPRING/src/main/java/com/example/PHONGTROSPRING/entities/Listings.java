@@ -66,14 +66,19 @@ public class Listings {
 	@Column(nullable = false, columnDefinition = "nvarchar(255)")
 	private String object;
 
+	/*
+	 * public LocalDateTime getExpiryDate() { return expiryDate; }
+	 * 
+	 * public void setExpiryDate(int vip) { if (vip == 5) { expiryDate =
+	 * LocalDateTime.now().plusDays(5); } }
+	 */
+
 	public LocalDateTime getExpiryDate() {
 		return expiryDate;
 	}
 
-	public void setExpiryDate(int vip) {
-		if (vip == 5) {
-			expiryDate = LocalDateTime.now().plusDays(5);
-		}
+	public void setExpiryDate(LocalDateTime expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 
 	public int getPostType() {

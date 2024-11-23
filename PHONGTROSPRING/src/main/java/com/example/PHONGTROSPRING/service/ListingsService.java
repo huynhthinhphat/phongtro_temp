@@ -32,38 +32,30 @@ public class ListingsService {
 		return list;
 	}
 
-	public void addSampleListings() {
-
-		// Chú ý: khi set id cho các user, location, roomtype thì lấy id trong sql vì id
-		// này là chuỗi và sinh ra ngẫu nhiên chứ không phải số
-		User user = new User();
-		user.setUserId("53c5fcc8-cd81-43ef-a911-6bf48473f7eb");
-
-		Locations location = new Locations();
-		location.setLocationId(1);
-
-		RoomTypes roomType = new RoomTypes();
-		roomType.setRoomTypeId(1);
-
-		Listings listing = new Listings();
-
-		listing.setUser(user);
-		listing.setTitle("Phòng cho thuê gần hồ Hoàn Kiếm");
-		listing.setDescription("Phòng đẹp, có đầy đủ tiện nghi, gần trung tâm.");
-		listing.setPrice(new BigDecimal("3000000"));
-		listing.setArea(new BigDecimal("20.5"));
-		listing.setLocation(location);
-		listing.setAddress("15 đường Lê Duẩn");
-		listing.setRoomType(roomType);
-		listing.setCreatedAt();
-		listing.setStatus("Chờ duyệt");
-		listing.setObject("Tất cả");
-		listing.setPostType(2);
-		listing.setExpiryDate(5);
-		listing.setUpdatedAt();
-
-		listingRepository.save(listing);
-	}
+	/*
+	 * public void addSampleListings() {
+	 * 
+	 * // Chú ý: khi set id cho các user, location, roomtype thì lấy id trong sql vì
+	 * id // này là chuỗi và sinh ra ngẫu nhiên chứ không phải số User user = new
+	 * User(); user.setUserId("53c5fcc8-cd81-43ef-a911-6bf48473f7eb");
+	 * 
+	 * Locations location = new Locations(); location.setLocationId(1);
+	 * 
+	 * RoomTypes roomType = new RoomTypes(); roomType.setRoomTypeId(1);
+	 * 
+	 * Listings listing = new Listings();
+	 * 
+	 * listing.setUser(user); listing.setTitle("Phòng cho thuê gần hồ Hoàn Kiếm");
+	 * listing.setDescription("Phòng đẹp, có đầy đủ tiện nghi, gần trung tâm.");
+	 * listing.setPrice(new BigDecimal("3000000")); listing.setArea(new
+	 * BigDecimal("20.5")); listing.setLocation(location);
+	 * listing.setAddress("15 đường Lê Duẩn"); listing.setRoomType(roomType);
+	 * listing.setCreatedAt(); listing.setStatus("Chờ duyệt");
+	 * listing.setObject("Tất cả"); listing.setPostType(2);
+	 * listing.setExpiryDate(5); listing.setUpdatedAt();
+	 * 
+	 * listingRepository.save(listing); }
+	 */
 
 	public Listings getRoomById(int roomId) {
 		return listingRepository.findById(roomId).orElse(null);
