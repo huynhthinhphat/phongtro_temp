@@ -1,5 +1,7 @@
 package com.example.PHONGTROSPRING.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.PHONGTROSPRING.entities.Listings;
 import com.example.PHONGTROSPRING.service.ImagesService;
 import com.example.PHONGTROSPRING.service.ListingsService;
 
@@ -45,4 +48,19 @@ public class ListingsController {
 		
 		return "views/detailRooms";
 	}
+	
+	@GetMapping("/phongtro")
+	public String PhongtroInfo(Model model) {
+		
+        // Lấy danh sách phòng từ service
+        List<Listings> listings = listingsService.getAllListings();
+
+        // Đưa danh sách vào model để truyền qua HTML
+        model.addAttribute("listings", listings);
+		
+		return "phongtro";
+	}
+	
+	
+	
 }
