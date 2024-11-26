@@ -1,5 +1,7 @@
 package com.example.PHONGTROSPRING.entities;
 
+import java.util.Base64;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +24,7 @@ public class Images {
 	@JoinColumn(name = "itemId", referencedColumnName = "itemId")
 	private Listings listing;
 
-	@Column(nullable = false, length = 255)
+	//@Column(nullable = false, length = 255)
 	@Lob
 	private byte[] imageUrl;
 
@@ -45,6 +47,10 @@ public class Images {
 	public byte[] getImageUrl() {
 		return imageUrl;
 	}
+	
+    public String getImageUrlAsBase64() {
+        return "data:image/jpeg;base64," + Base64.getEncoder().encodeToString(imageUrl);
+    }
 
 	public void setImageUrl(byte[] imageUrl) {
 		this.imageUrl = imageUrl;

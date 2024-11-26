@@ -165,8 +165,19 @@ public class ServicePostNew {
 
 	}
 
-	public byte[] getanh(int id) {
-		return ImagesRepository.findById(id).orElseThrow(() -> new RuntimeException("Image not found")).getImageUrl();
+	/*
+	 * public byte[] getanh(int id) { return
+	 * ImagesRepository.findById(id).orElseThrow(() -> new
+	 * RuntimeException("Image not found")).getImageUrl(); }
+	 */
+	public List<byte[]> getanh(int id) {
+		Listings listting = ListingsRepository.findById(id).orElseThrow(()-> new RuntimeException("Tìm không có listting"));
+		List<Images> listimage = ImagesRepository.findByListing(listting);
+		List<byte[]> listurl = new ArrayList<>();
+		for(Images img : listimage) {
+			listurl.add(img.getImageUrl());
+		}
+		return listurl;
 	}
 
 	public BigDecimal tinhtien(RequestThanhToan request) {
