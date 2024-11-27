@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Nạp tiền vào tài khoản</title>
+<link rel="stylesheet" type="text/css" href="/assets/css/naptien.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/header.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/assets/js/naptien.js"></script>
+
+</head>
+<body>
+	<!-- Header (được tái sử dụng nếu bạn đã có th:replace cho header) -->
+	<header th:replace="views/header-footer/header"></header>
+
+	<div class="container">
+		<div class="left-column">
+
+			<!-- Thông tin người dùng -->
+			<div class="user-info">
+				<div class="user-info2">
+					<div class="user-avatar">
+						<i class="fa-solid fa-circle-user fa-4x"></i>
+					</div>
+					<div class="user-details">
+
+						<p class="user-name">Nguyễn Văn Thuận</p>
+						<p class="user-phone">0384756773</p>
+						<p class="user-id">
+							Mã thành viên: <span>12345678</span>
+						</p>
+					</div>
+				</div>
+				<div class="btn2">
+					<button
+						th:onclick="'window.location.href=\'' + @{/recharge} + '\''"
+						class="btn-recharge">Nạp tiền</button>
+					<button class="btn-post">Đăng tin</button>
+				</div>
+				<div class="support-info">
+					<p>Nhân viên hỗ trợ của bạn:</p>
+					<p>Văn Thuận - 0999999999</p>
+				</div>
+			</div>
+
+			<!-- Thanh bên (sidebar) -->
+			<aside class="sidebar">
+
+				<ul class="menu">
+					<li><a href="#">Quản lý tin đăng</a></li>
+					<li><a href="#">Sửa thông tin cá nhân</a></li>
+					<li><a th:href="@{/recharge}">Nạp tiền vào tài khoản</a></li>
+					<li><a th:href="@{/recharge4}">Lịch sử nạp tiền</a></li>
+					<li><a href="#">Lịch sử thanh toán</a></li>
+					<li><a href="#">Bảng giá dịch vụ</a></li>
+					<li><a href="#">Liên hệ</a></li>
+					<li><a href="#">Thoát</a></li>
+				</ul>
+			</aside>
+
+
+		</div>
+
+		<div class="payment-methods3">
+			<div class="confirmation-message">
+				<form th:action="@{/recharge4}" method="post">
+					<div class="qr-and-info">
+						<div class="qr-code">
+							<img src="/assets/images/qrcode.png" alt="Quét và ting ting nhé">
+						</div>
+						<div class="info">
+							<h2>Thực hiện chuyển khoản</h2>
+							<p>
+								Số tiền: <span class="amount" th:text="${amount}"></span> VND
+							</p>
+							<input type="hidden" name="amount" th:value="${amount}" />
+							<div class="bank-info">
+								<span>Chủ tài khoản:
+									<p>Nguyễn Văn Thuận</p>
+								</span> <span>Ngân hàng:
+									<p>BIDV</p>
+								</span> <span>Chi nhánh:
+									<p>Bình Định</p>
+								</span>
+							</div>
+							<button class="btn-confirm">Xác nhận đã chuyển khoản</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+	</div>
+
+</body>
+</html>
