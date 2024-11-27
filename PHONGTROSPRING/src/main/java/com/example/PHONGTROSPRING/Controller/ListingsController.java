@@ -17,6 +17,8 @@ import com.example.PHONGTROSPRING.response.phongtroresponse;
 import com.example.PHONGTROSPRING.service.ImagesService;
 import com.example.PHONGTROSPRING.service.ListingsService;
 import com.example.PHONGTROSPRING.service.ServicePostNew;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class ListingsController {
@@ -121,5 +123,7 @@ public class ListingsController {
 	 * "data:image/png;base64," + Base64.getEncoder().encodeToString(imageBytes);
 	 * model.addAttribute("urlimg", listurlimg); return "views/phongtro"; }
 	 */
+	
+
 
 }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/blog.css">
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/header.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/footer.css">
+	<link rel="stylesheet" type="text/css" href="/assets/css/media.css">
+</head>
+<body>
+	<div th:replace="views/header-footer/header"></div>
+<nav class="breadcrumb">
+    <a href="/">Trang chủ</a> &gt;
+    <a style="color: black" href="/blog">Tin tức</a>
+</nav>
+
+<h2 class="news-title">Tin tức thị trường, chia sẻ kinh nghiệm Bất động sản</h2>
+    <div class="news-container">
+        
+        <div class="news-list">
+            <!-- Lặp qua danh sách blogPosts -->
+            <div th:each="post : ${blogPosts}" class="news-item">
+                <img src="path/to/image" alt="News Image" class="news-image"> <!-- Bạn có thể thêm cột ảnh nếu cần -->
+                <div class="news-content">
+                    <h3 th:text="${post.title}" class="news-heading">Tiêu đề bài viết</h3>
+                    <p th:text="${post.message}" class="news-description">Nội dung tóm tắt</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    	<div th:replace="views/header-footer/footer"></div>
+</body>
+<script>
+  // Hàm giới hạn số từ
+  function truncateText(text, maxWords) {
+    const words = text.split(' ');
+    return words.length > maxWords 
+      ? words.slice(0, maxWords).join(' ') + '  . . . ' 
+      : text;
+  }
+
+  // Áp dụng cho các mô tả
+  document.addEventListener("DOMContentLoaded", function () {
+    const descriptions = document.querySelectorAll(".news-description");
+
+    descriptions.forEach((descriptionElement) => {
+      const fullText = descriptionElement.textContent.trim();
+      const truncatedText = truncateText(fullText, 30); // Giới hạn 30 từ
+      descriptionElement.textContent = truncatedText;
+    });
+  });
+</script>
+</html>
