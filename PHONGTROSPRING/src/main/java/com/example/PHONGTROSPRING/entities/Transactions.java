@@ -1,7 +1,6 @@
 package com.example.PHONGTROSPRING.entities;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -70,14 +69,15 @@ public class Transactions {
 	}
 
 	public void setStatus(String status) {
-		String statusTemp = "Chờ xác nhận";
+	    String statusTemp = "Đang xử lý";
 
-		if (status.equals("Thành công")) {
-			statusTemp = "Thành công";
-		} else if (status.equals("Thất bại")) {
-			statusTemp = "Thất bại";
-		}
+	    if ("Thành công".equals(status)) {
+	        statusTemp = "Thành công";
+	    } else if ("Thất bại".equals(status)) {
+	        statusTemp = "Thất bại";
+	    }
 
-		this.status = statusTemp;
+	    this.status = statusTemp;
 	}
+
 }
