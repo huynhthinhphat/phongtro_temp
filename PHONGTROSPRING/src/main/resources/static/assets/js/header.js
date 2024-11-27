@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	var register = document.getElementById("register");
 	var login = document.getElementById("login");
 	var logout = document.getElementById("logout");
+	var recharge = document.getElementById("recharge");
 
 	if (login && register) {
 		login.addEventListener("click", function() {
@@ -20,6 +21,12 @@ document.addEventListener("DOMContentLoaded", function() {
 		})
 	}
 
+	if (recharge) {
+		recharge.addEventListener("click", function() {
+			window.location.href = "/recharge";
+		})
+	}
+
 	var header_fullname = document.getElementById("header_fullname");
 	var header_popup = document.getElementById("header_popup");
 	var popup = document.getElementById("popup");
@@ -29,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	favorite.addEventListener('click', function() {
 		if (!header_fullname) {
 			redirectFavoritepage();
-		} 
+		}
 	});
 
 
