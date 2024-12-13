@@ -22,7 +22,7 @@ public class HomeController {
 	}
 	@GetMapping("banggiadichvu")
 	public String banggiadichvu() {
-		return "views\\footer-infor-about-website\\danhchokhachhang\\banggiadichvu.html";
+		return "views/footer-infor-about-website/danhchokhachhang/banggiadichvu";
 	}
 	
 

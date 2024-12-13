@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.PHONGTROSPRING.entities.Images;
 import com.example.PHONGTROSPRING.entities.Listings;
-import com.example.PHONGTROSPRING.entities.Locations;
+//import com.example.PHONGTROSPRING.entities.Locations;
 import com.example.PHONGTROSPRING.entities.RoomTypes;
 import com.example.PHONGTROSPRING.entities.User;
 import com.example.PHONGTROSPRING.repository.ListingsRepository;

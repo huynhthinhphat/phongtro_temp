@@ -58,4 +58,9 @@
 		font-size: 2.3vh;
         white-space: nowrap;
 	}
+	
+	.wrapper_footer_page{
+		width: 142vh;
+		margin: 2rem 13.5rem !important;
+	}
 }

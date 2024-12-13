@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.PHONGTROSPRING.entities.Locations;
+import com.example.PHONGTROSPRING.entities.*;
 
 @Repository
-public interface LocationRepository extends JpaRepository<Locations, Integer>{
-	List<Locations> findByCity(String city);
+public interface LocationsCityRepository extends JpaRepository<LocationsCity, Integer>{
+	List<LocationsCity> findByCity(String city);
 }

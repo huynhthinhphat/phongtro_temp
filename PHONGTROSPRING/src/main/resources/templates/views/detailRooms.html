@@ -126,7 +126,7 @@
 							</tr>
 							<tr>
 								<td>Ngày hết hạn:</td>
-								<td class="color" th:text="Null"></td>
+								<td class="color" th:text="${#temporals.format(room.expiryDate, 'dd/MM/yyyy HH:mm')}"></td>
 							</tr>
 						</table>
 					</div>
