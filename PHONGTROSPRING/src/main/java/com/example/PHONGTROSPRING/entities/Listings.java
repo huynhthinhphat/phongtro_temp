@@ -55,10 +55,6 @@ public class Listings {
 	@JoinColumn(nullable = false, name = "ward_id", referencedColumnName = "ward_id")
 	private LocationsWard location_ward;
 
-	@ManyToOne
-	@JoinColumn(nullable = false, name = "street_id", referencedColumnName = "street_id")
-	private Streets street;
-
 	@Column(nullable = false, columnDefinition = "varchar(255)")
 	private String address;
 
@@ -117,14 +113,6 @@ public class Listings {
 
 	public void setLocation_ward(LocationsWard location_ward) {
 		this.location_ward = location_ward;
-	}
-
-	public Streets getStreet() {
-		return street;
-	}
-
-	public void setStreet(Streets street) {
-		this.street = street;
 	}
 
 	public void setExpiryDate(LocalDateTime expiryDate) {

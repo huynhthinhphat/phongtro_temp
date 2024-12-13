@@ -12,10 +12,10 @@ import com.example.PHONGTROSPRING.entities.Listings;
 @Repository
 public interface ListingsRepository extends JpaRepository<Listings, Integer>{
 
-	@Query("SELECT l FROM Listings l WHERE l.location.locationId = :locationId ORDER BY l.postType DESC, l.createdAt DESC")
-	List<Listings> findAllListingsOrderByPostTypeAndCreatedAt(@Param("locationId") int locationId);
-	
-	@Query("SELECT l FROM Listings l WHERE l.location.locationId = :locationId ORDER BY l.createdAt DESC")
-	List<Listings> findAllListingsFollowLocationAndCreatedAt(@Param("locationId") int locationId);
+//	@Query("SELECT l FROM Listings l WHERE l.location.locationId = :locationId ORDER BY l.postType DESC, l.createdAt DESC")
+//	List<Listings> findAllListingsOrderByPostTypeAndCreatedAt(@Param("locationId") int locationId);
+//	
+//	@Query("SELECT l FROM Listings l WHERE l.location.locationId = :locationId ORDER BY l.createdAt DESC")
+//	List<Listings> findAllListingsFollowLocationAndCreatedAt(@Param("locationId") int locationId);
 
 }

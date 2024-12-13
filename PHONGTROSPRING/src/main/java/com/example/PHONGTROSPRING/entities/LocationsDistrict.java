@@ -20,8 +20,8 @@ public class LocationsDistrict {
 		return district_id;
 	}
 
-	public void setDistrict_id(int city_id) {
-		this.district_id = city_id;
+	public void setDistrict_id(int district_id) {
+		this.district_id = district_id;
 	}
 
 	public LocationsCity getLocation_city() {

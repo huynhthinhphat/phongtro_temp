@@ -5,15 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.PHONGTROSPRING.service.ListingsService;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
 public class HomeController {
 
-	@Autowired
-	private ListingsService listingsService;
+//	@Autowired
+//	private ListingsService listingsService;
 
 	@GetMapping({ "", "/" })
 	public String dangtin(Model model) {
