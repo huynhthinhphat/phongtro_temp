@@ -22,7 +22,7 @@ public class AddLocationRestController {
 	public String saveDistrict(@PathVariable String city, @PathVariable String district) {
 		return service.saveDisctrict(city, district);
 	}
-	
+
 	@GetMapping("/saveWards/{district}/{ward}")
 	public String saveWard(@PathVariable String district, @PathVariable String ward) {
 		return service.saveWard(district, ward);

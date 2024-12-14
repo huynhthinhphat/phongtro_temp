@@ -1,6 +1,7 @@
 package com.example.PHONGTROSPRING.entities;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -123,6 +124,16 @@ public class Listings {
 		return postType;
 	}
 
+	public String changePostType() {
+		if (postType == 1) {
+			return "Tin thường";
+		} else if (postType == 5) {
+			return "Tin VIP nổi bật";
+		} else {
+			return "Tin VIP " + (5 - postType);
+		}
+	}
+
 	public void setPostType(int postType) {
 		this.postType = postType;
 	}
@@ -185,6 +196,15 @@ public class Listings {
 		return price;
 	}
 
+	public String changePrice() {
+		if (price.compareTo(new BigDecimal("1000000")) > 0) {
+			BigDecimal priceInMillions = price.divide(new BigDecimal("1000000"), 2, RoundingMode.HALF_UP);
+			return priceInMillions + " triệu/tháng";
+		} else {
+			return price + " đồng/tháng";
+		}
+	}
+
 	public String getFormattedPrice() {
 		DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
@@ -202,6 +222,27 @@ public class Listings {
 		}
 	}
 
+	public String date(LocalDateTime date) {
+		LocalDateTime now = LocalDateTime.now();
+		long timeSeconds = ChronoUnit.SECONDS.between(date, now);
+		long timeMinutes = ChronoUnit.MINUTES.between(date, now);
+		long timeHours = ChronoUnit.HOURS.between(date, now);
+		long timeDays = ChronoUnit.DAYS.between(date, now);
+
+		String dateTime = "";
+		if (timeSeconds <= 60) {
+			dateTime = timeSeconds + " giây trước";
+		} else if (timeMinutes <= 60) {
+			dateTime = timeMinutes + " phút trước";
+		} else if (timeHours <= 24) {
+			dateTime = timeHours + " giờ trước";
+		} else {
+			dateTime = timeDays + " ngày trước";
+		}
+
+		return dateTime;
+	}
+
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
@@ -213,14 +254,6 @@ public class Listings {
 	public void setArea(BigDecimal area) {
 		this.area = area;
 	}
-
-//	public Locations getLocation() {
-//		return location;
-//	}
-//
-//	public void setLocation(Locations location) {
-//		this.location = location;
-//	}
 
 	public String getAddress() {
 		return address;
@@ -297,5 +330,31 @@ public class Listings {
 		}
 
 		this.object = objectTemp;
+	}
+
+	public String changeDate() {
+		LocalDateTime now = LocalDateTime.now();
+		long timeSeconds = ChronoUnit.SECONDS.between(createdAt, now);
+		long timeMinutes = ChronoUnit.MINUTES.between(createdAt, now);
+		long timeHours = ChronoUnit.HOURS.between(createdAt, now);
+		long timeDays = ChronoUnit.DAYS.between(createdAt, now);
+
+		String dateTime = "";
+		if (timeSeconds <= 60) {
+			dateTime = timeSeconds + " giây trước";
+		} else if (timeMinutes <= 60) {
+			dateTime = timeMinutes + " phút trước";
+		} else if (timeHours <= 24) {
+			dateTime = timeHours + " giờ trước";
+		} else {
+			dateTime = timeDays + " ngày trước";
+		}
+
+		return dateTime;
+	}
+
+	public String addressCurrent() {
+		return address + ", " + location_ward.getWard() + ", " + location_district.getDistrict() + ", "
+				+ location_city.getCity();
 	}
 }

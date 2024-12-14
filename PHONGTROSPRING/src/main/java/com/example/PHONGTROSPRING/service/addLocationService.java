@@ -20,6 +20,9 @@ public class addLocationService {
 	@Autowired
 	private LocationsWardRepository wardRepo;
 
+	@Autowired
+	private RoomTypesRepository roomRepo;
+
 	public String addCity(String city) {
 
 		LocationsCity newCity = new LocationsCity();
@@ -76,11 +79,47 @@ public class addLocationService {
 				ward.setLocation_district(districCurrent);
 
 				wardRepo.save(ward);
-
+				
 				return "Thành công";
 			}
+
+			addRoomType();
+			
 			return "Đã có ward";
 		}
 		return "Không có district";
+	}
+
+	public void addRoomType() {
+
+		Optional<RoomTypes> checkRoom1 = roomRepo.searchRoomTypes("Phòng trọ");
+		Optional<RoomTypes> checkRoom2 = roomRepo.searchRoomTypes("Nhà nguyên căn");
+		Optional<RoomTypes> checkRoom3 = roomRepo.searchRoomTypes("Căn hộ");
+		Optional<RoomTypes> checkRoom4 = roomRepo.searchRoomTypes("Mặt bằng");
+
+		RoomTypes room1 = new RoomTypes();
+		RoomTypes room2 = new RoomTypes();
+		RoomTypes room3 = new RoomTypes();
+		RoomTypes room4 = new RoomTypes();
+
+		if (!checkRoom1.isPresent()) {
+			room1.setRoomTypeName("Phòng trọ");
+			roomRepo.save(room1);
+		}
+
+		if (!checkRoom2.isPresent()) {
+			room2.setRoomTypeName("Nhà nguyên căn");
+			roomRepo.save(room2);
+		}
+
+		if (!checkRoom3.isPresent()) {
+			room3.setRoomTypeName("Căn hộ");
+			roomRepo.save(room3);
+		}
+
+		if (!checkRoom4.isPresent()) {
+			room4.setRoomTypeName("Mặt bằng");
+			roomRepo.save(room4);
+		}
 	}
 }

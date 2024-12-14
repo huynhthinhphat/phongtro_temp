@@ -19,6 +19,7 @@ public class HomeController {
 		//model.addAttribute("list", listingsService.getAllListings());
 		return "views/home";
 	}
+	
 	@GetMapping("banggiadichvu")
 	public String banggiadichvu() {
 		return "views/footer-infor-about-website/danhchokhachhang/banggiadichvu";

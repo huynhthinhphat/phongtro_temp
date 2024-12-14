@@ -16,4 +16,7 @@ public interface LocationsCityRepository extends JpaRepository<LocationsCity, In
 	
 	@Query("SELECT c FROM LocationsCity c WHERE c.city = :city")
 	Optional<LocationsCity> findByCity(@Param("city") String city);
+	
+	@Query("SELECT c.city_id FROM LocationsCity c WHERE c.city = :city")
+	int findByCityName(@Param("city") String city);
 }

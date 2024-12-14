@@ -7,7 +7,7 @@
 	<!-- Thông tin người dùng sẽ hiển thị khi login/register thành công -->
 	<div class="header-infor" th:if="${session.user != null}">
 		<div style="margin-right: 2%;">
-			<i style="font-size: 3vh;" class="fa-solid fa-circle-user"></i>
+			<i style="font-size: 5vh;" class="fa-solid fa-circle-user"></i>
 		</div>
 		<div>
 			<span th:if="${session.user.fullName.length() >= 13}" >Xin chào, <span id="header_fullname" style="font-weight: 600" th:text="${#strings.substring(session.user.fullName, 0, 13) + '...'}"></span></span>
@@ -40,8 +40,8 @@
 			<ul class="header-account-menu margin_top_second">
 				<li id="infor_detail_user">Thông tin tài khoản</li>
 				<li id="change_password">Đổi mật khẩu</li>
-				<li id="logout">Đăng xuất</li>
 				<li id="recharge"> Nạp tiền</li>
+				<li id="logout">Đăng xuất</li>
 			</ul> 
 		</a>
 	</div>
