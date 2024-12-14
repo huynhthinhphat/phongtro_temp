@@ -17,6 +17,14 @@ public class LocationsCity {
 	@Column(nullable = false, length = 100, columnDefinition = "varchar(255)")
 	private String city;
 
+	public int getCity_id() {
+		return city_id;
+	}
+
+	public void setCity_id(int city_id) {
+		this.city_id = city_id;
+	}
+
 	public String getCity() {
 		return city;
 	}

@@ -11,7 +11,7 @@ public class LocationsWard {
 
 	@ManyToOne
 	@JoinColumn(name = "district_id", nullable = false, referencedColumnName = "district_id")
-	private LocationsDistrict district_id;
+	private LocationsDistrict location_district;
 
 	@Column(nullable = false)
 	private String ward;
@@ -24,12 +24,12 @@ public class LocationsWard {
 		this.ward_id = ward_id;
 	}
 
-	public LocationsDistrict getDistrict_id() {
-		return district_id;
+	public LocationsDistrict getLocation_district() {
+		return location_district;
 	}
 
-	public void setDistrict_id(LocationsDistrict district_id) {
-		this.district_id = district_id;
+	public void setLocation_district(LocationsDistrict location_district) {
+		this.location_district = location_district;
 	}
 
 	public String getWard() {

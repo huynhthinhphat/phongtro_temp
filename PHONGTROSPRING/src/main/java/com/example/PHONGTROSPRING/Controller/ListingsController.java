@@ -1,57 +1,70 @@
-//package com.example.PHONGTROSPRING.Controller;
-//
-//import java.util.ArrayList;
-//import java.util.Base64;
-//import java.util.List;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import com.example.PHONGTROSPRING.entities.Images;
-//import com.example.PHONGTROSPRING.entities.Listings;
-//import com.example.PHONGTROSPRING.response.phongtroresponse;
-//import com.example.PHONGTROSPRING.service.ImagesService;
-//import com.example.PHONGTROSPRING.service.ListingsService;
-//import com.example.PHONGTROSPRING.service.ServicePostNew;
-//import org.springframework.web.bind.annotation.RequestParam;
-//
-//@Controller
-//public class ListingsController {
-//
-//	@Autowired
-//	private ListingsService listingsService;
-//
-//	@Autowired
-//	private ImagesService imageService;
-//
-//	@Autowired
-//	private ServicePostNew ServicePostNew;
-//
-//	/*
-//	 * @GetMapping("/add-listing") public String add() {
-//	 * listingsService.addSampleListings(); return "ok"; }
-//	 */
-//
-//	@GetMapping("/detailRoom/id={roomId}")
-//	public String detailRoom(@PathVariable int roomId, Model model) {
-//
-//		// Tin chính
-//
-//		List<String> listanh = new ArrayList<>();
-//		for (byte[] by : ServicePostNew.getanh(roomId)) {
-//			listanh.add(Base64.getEncoder().encodeToString(by));
-//		}
-//		
-//		model.addAttribute("listDescription",
-//				listingsService.cutStringDescription(listingsService.getRoomById(roomId).getDescription()));
-//		model.addAttribute("room", listingsService.getRoomById(roomId));
-//		model.addAttribute("image", listanh);
-//		model.addAttribute("time", listingsService.date(listingsService.getRoomById(roomId).getCreatedAt()));
-//
+package com.example.PHONGTROSPRING.Controller;
+
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+
+import com.example.PHONGTROSPRING.entities.*;
+import com.example.PHONGTROSPRING.response.ListingsResponse;
+import com.example.PHONGTROSPRING.service.*;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+public class ListingsController {
+
+	@Autowired
+	private ImagesService imageService;
+
+	@Autowired
+	private ServicePostNew ServicePostNew;
+
+	@Autowired
+	private ListingsService listingsService;
+
+	/*
+	 * @GetMapping("/add-listing") public String add() {
+	 * listingsService.addSampleListings(); return "ok"; }
+	 */
+
+	@GetMapping("/detailRoom/id={roomId}")
+	public String detailRoom(@PathVariable int roomId, Model model) {
+
+		Listings room = listingsService.findById(roomId);
+
+		model.addAttribute("room", room);
+		model.addAttribute("listDescription", listingsService.cutStringDescription(room.getDescription()));
+
+		// Ảnh
+		model.addAttribute("listImages", listingsService.getImages(roomId));
+
+		// Tin nổi bật lấy theo vị trí district, ko lấy những phòng có id là id phòng
+		// hiện tại, lấy theo loại phòng
+		model.addAttribute("featuredNew", setImageForListingsResponse(listingsService.findAllListingsFeatured(room.getItemId(),
+				room.getRoomType().getRoomTypeId(), room.getLocation_district().getDistrict_id())));
+		
+		//Tin vừa đăng
+		model.addAttribute("newRooms", setImageForListingsResponse(listingsService.findAllNewsJustPosted(room.getItemId(),
+				room.getRoomType().getRoomTypeId(), room.getLocation_district().getDistrict_id())));
+
+		return "views/detailRooms";
+	}
+	
+	//set ảnh cho từng đối tượng listingsResponse
+	public List<ListingsResponse> setImageForListingsResponse(List<ListingsResponse> listingResponse){
+		List<ListingsResponse> list = new ArrayList<>();
+		
+		for (ListingsResponse item : listingResponse) {
+			item.setImageUrl(listingsService.findImageByItemId(item.getItemId()).get(0));
+			list.add(item);
+		}
+		
+		return list;
+	}
+
 //		// Tin nổi bật
 //		model.addAttribute("FeaturedNew",
 //				listingsService.getRoomFeatured(listingsService.getRoomById(roomId).getLocation().getLocationId()));
@@ -64,14 +77,11 @@
 //				listingsService.getNewRoom(listingsService.getRoomById(roomId).getLocation().getLocationId()));
 //		model.addAttribute("timeNewRooms", listingsService.dateArray(
 //				listingsService.getNewRoom(listingsService.getRoomById(roomId).getLocation().getLocationId())));
-//
-//		return "views/detailRooms";
-//	}
-//
+
 //	@GetMapping("/phongtro")
-//	public String PhongtroInfo(Model model) {
-//
-//		// Lấy danh sách phòng từ service
+////	public String PhongtroInfo(Model model) {
+
+	// Lấy danh sách phòng từ service
 //		List<Listings> listings = listingsService.getAllListings();
 //		List<phongtroresponse> listphongtrocoanh = new ArrayList<phongtroresponse>();
 //		for (int i = 0; i < listings.size(); i++) {
@@ -103,28 +113,19 @@
 //			listphongtrocoanh.add(phongtro);
 //
 //		}
-//
-//		// String base64Image = "data:image/png;base64," +
-//		// Base64.getEncoder().encodeToString(imageBytes);
-//		/*
-//		 * model.addAttribute("urlimg", listurlimg);
-//		 * System.out.println("anh ne "+listurlimg);
-//		 */
-//		// Đưa danh sách vào model để truyền qua HTML
+
+	// String base64Image = "data:image/png;base64," +
+	// Base64.getEncoder().encodeToString(imageBytes);
+	/*
+	 * model.addAttribute("urlimg", listurlimg);
+	 * System.out.println("anh ne "+listurlimg);
+	 */
+	// Đưa danh sách vào model để truyền qua HTML
 //		model.addAttribute("listings", listphongtrocoanh);
 //		// System.out.println("data co hoac khong " + listphongtrocoanh);
 //
 //		return "views/phongtro";
 //	}
-//
-//	/*
-//	 * @GetMapping("/phongtro") public String getanh(@PathVariable int id, Model
-//	 * model) { List<byte[]> imageBytes = ServicePostNew.getanh(id); List<String>
-//	 * listurlimg = new ArrayList<String>(); for(byte[] img : imageBytes) {
-//	 * listurlimg.add("data:image/png;base64,"+
-//	 * Base64.getEncoder().encodeToString(img)); } //String base64Image =
-//	 * "data:image/png;base64," + Base64.getEncoder().encodeToString(imageBytes);
-//	 * model.addAttribute("urlimg", listurlimg); return "views/phongtro"; }
-//	 */
-//
-//}
+
+
+}
